@@ -13,8 +13,8 @@ def get_authors(soup):
         author_soup = get_soup(author_url)
         author_info = {
             'fullname': author.text,
-            'born_date': author_soup.select('.author-born-date')[0].text,
-            'born_location': author_soup.select('.author-born-location')[0].text,
+            'born_date': author_soup.select('.author-born-date')[0].text.strip(),
+            'born_location': author_soup.select('.author-born-location')[0].text.strip(),
             'description': author_soup.select('.author-description')[0].text.strip()
         }
         if author_info not in authors:
@@ -25,9 +25,9 @@ def get_quotes(soup):
     quotes = []
     for quote in soup.select('.quote'):
         quote_info = {
-            'tags': [tag.text for tag in quote.select('.tag')],
-            'author': quote.select('.author')[0].text,
-            'quote': quote.select('.text')[0].text
+            'tags': [tag.text.strip() for tag in quote.select('.tag')],
+            'author': quote.select('.author')[0].text.strip(),
+            'quote': quote.select('.text')[0].text.strip()
         }
         quotes.append(quote_info)
     return quotes
